@@ -1,16 +1,11 @@
 # wasseoyo
 
-A new Flutter project.
+wasseoyo 프로젝트 초기화
 
-## Getting Started
+# 프로젝트 구조
+![image](https://user-images.githubusercontent.com/66403979/230765347-812f0ef1-3aae-4bc2-9457-c04be72db0d1.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 프로젝트 설명
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Provider를 사용하여 MVVM 아키텍처 적용
