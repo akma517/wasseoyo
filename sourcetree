@@ -1,0 +1,36 @@
+폴더 PATH의 목록입니다.
+볼륨 일련 번호는 0260-D04D입니다.
+E:\DOCKER_WORKSPACE\WASSEOYO\WASSEOYO\LIB
+│  firebase_options.dart
+│  main.dart
+│  
+├─data
+│  ├─models
+│  │      user.dart
+│  │      
+│  ├─repositories
+│  │      user_repository.dart
+│  │      
+│  └─services
+│          user_service.dart
+│          
+├─presentation
+│  ├─viewmodels
+│  │      index_view_model.dart
+│  │      
+│  ├─views
+│  │      index_screen.dart
+│  │      splash_screen.dart
+│  │      
+│  └─widgets
+│          hello_widget.dart
+│          
+└─utils
+    ├─constants
+    │      route_constant.dart
+    │      uri_constant.dart
+    │      
+    ├─enums
+    └─helpers
+            route_mapper.dart
+            

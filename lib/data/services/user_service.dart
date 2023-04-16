@@ -11,4 +11,8 @@ class UserService {
   Future<User> getUserInfo(String userId) {
     return _userRepository.getUserInfo(userId);
   }
+
+  Future<User> login(String userId, password) {
+    return _userRepository.login(userId, password);
+  }
 }

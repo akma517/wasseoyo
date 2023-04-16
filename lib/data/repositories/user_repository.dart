@@ -53,4 +53,30 @@ class UserRepository {
 
     return user;
   }
+
+  // 로그인
+  Future<User> login(String userId, String password) async {
+    User user = User.nullToInit();
+
+    try {
+      var response = await http.post(
+        Uri.parse("$BASE_URI/post/user/login"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "id": userId,
+          "password": password,
+        }),
+      );
+
+      Map jsonResponse = jsonDecode(response.body);
+
+      user = User.fromJson(jsonResponse["user"]);
+
+      log("user : [${user.id}, ${user.name}, ${user.nickName}]");
+    } catch (error) {
+      log("request failed at [login] \nerror : $error");
+    }
+
+    return user;
+  }
 }
