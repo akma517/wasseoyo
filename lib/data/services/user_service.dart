@@ -12,7 +12,11 @@ class UserService {
     return _userRepository.getUserInfo(userId);
   }
 
-  Future<User> login(String userId, password) {
+  Future<User> login(String userId, String password) {
     return _userRepository.login(userId, password);
+  }
+
+  Future<User> changePassword(String userId, String password) {
+    return _userRepository.changePassword(userId, password);
   }
 }

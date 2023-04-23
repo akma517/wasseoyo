@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:wasseoyo/presentation/viewmodels/skwsy10001_view_model.dart';
+import 'package:wasseoyo/presentation/viewmodels/user_view_model.dart';
 import 'package:wasseoyo/utils/constants/route_constant.dart';
 import 'package:wasseoyo/utils/helpers/route_mapper.dart';
 import 'package:wasseoyo/utils/helpers/scroll.dart';
@@ -16,8 +16,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   late bool autoLogined;
-  Skwsy10001ViewModel skwsy10001ViewModel = Skwsy10001ViewModel();
-  await skwsy10001ViewModel.autoLogin().then(
+  UserViewModel userViewModel = UserViewModel();
+  await userViewModel.autoLogin().then(
     (autoLogin) {
       if (autoLogin) {
         autoLogined = true;
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => Skwsy10001ViewModel(),
+          create: (context) => UserViewModel(),
         ),
       ],
       child: MaterialApp(

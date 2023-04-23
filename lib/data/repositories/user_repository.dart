@@ -79,4 +79,30 @@ class UserRepository {
 
     return user;
   }
+
+  // 비밀번호 변경
+  Future<User> changePassword(String userId, String password) async {
+    User user = User.nullToInit();
+
+    try {
+      var response = await http.post(
+        Uri.parse("$BASE_URI/post/user/password"),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "id": userId,
+          "password": password,
+        }),
+      );
+
+      Map jsonResponse = jsonDecode(response.body);
+
+      user = User.fromJson(jsonResponse["user"]);
+
+      log("user : [${user.id}, ${user.name}, ${user.nickName}]");
+    } catch (error) {
+      log("request failed at [changePassword] \nerror : $error");
+    }
+
+    return user;
+  }
 }

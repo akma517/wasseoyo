@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wasseoyo/presentation/viewmodels/skwsy10001_view_model.dart';
+import 'package:wasseoyo/presentation/viewmodels/user_view_model.dart';
+import 'package:wasseoyo/presentation/widgets/agree_check.dart';
 import 'package:wasseoyo/utils/constants/assets.dart';
+import 'package:wasseoyo/utils/constants/colors.dart';
 import 'package:wasseoyo/utils/constants/fonts.dart';
 import 'package:wasseoyo/utils/constants/route_constant.dart';
 
@@ -14,26 +16,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  final ScrollController _controller = ScrollController();
-
-  scrollToInput() {
-    setState(() {
-      _controller.animateTo(_controller.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 600), curve: Curves.ease);
-    });
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _controller.dispose();
-    super.dispose();
-  }
+  final GlobalKey idKey = GlobalKey();
+  final GlobalKey passwordKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -41,21 +25,15 @@ class _LoginState extends State<Login> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-    FocusNode _focusNodeId = FocusNode();
-    FocusNode _focusNodePassword = FocusNode();
-
-    _focusNodeId.addListener(() {
-      scrollToInput();
-    });
-
-    _focusNodePassword.addListener(() {
-      scrollToInput();
-    });
-
-    var viewModel = Provider.of<Skwsy10001ViewModel>(context);
+    var viewModel = Provider.of<UserViewModel>(context);
 
     String userId = "";
     String password = "";
+
+    scrollToFocus(GlobalKey key) {
+      Scrollable.ensureVisible(key.currentContext ?? context,
+          duration: const Duration(milliseconds: 600), curve: Curves.ease);
+    }
 
     // _foucsListen();
     return GestureDetector(
@@ -71,7 +49,6 @@ class _LoginState extends State<Login> {
                   EdgeInsets.fromLTRB(20 * fem, 0 * fem, 11 * fem, 0 * fem),
               width: double.infinity,
               child: SingleChildScrollView(
-                controller: _controller,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +62,7 @@ class _LoginState extends State<Login> {
                       width: 142.35 * fem,
                       height: 41 * fem,
                       child: Image.asset(
-                        Assets.logo,
+                        MyAssets.logo,
                         width: 142.35 * fem,
                         height: 41 * fem,
                       ),
@@ -105,6 +82,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Container(
+                      key: idKey,
                       // inputtxtWd6 (395:87)
                       margin: EdgeInsets.fromLTRB(
                           0 * fem, 0 * fem, 9 * fem, 8 * fem),
@@ -119,7 +97,9 @@ class _LoginState extends State<Login> {
 
                             width: double.infinity,
                             child: TextFormField(
-                              focusNode: _focusNodeId,
+                              onTap: scrollToFocus(idKey),
+
+                              // focusNode: _focusNodeId,
                               validator: (value) {
                                 if (value!.isEmpty) return "사번을 입력해 주세요";
                               },
@@ -163,13 +143,15 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Container(
+                            key: passwordKey,
                             // 2bS (395:88)
                             margin: EdgeInsets.fromLTRB(
                                 0 * fem, 0 * fem, 0 * fem, 10 * fem),
                             width: double.infinity,
 
                             child: TextFormField(
-                              focusNode: _focusNodePassword,
+                              onTap: scrollToFocus(passwordKey),
+                              // focusNode: _focusNodePassword,
                               validator: (value) {
                                 if (value!.isEmpty) return "비밀번호를 입력해 주세요";
                               },
@@ -233,66 +215,29 @@ class _LoginState extends State<Login> {
                                     fontSize: 13 * ffem,
                                     fontWeight: FontWeight.w600,
                                     height: 1.2999999707 * ffem / fem,
-                                    color: const Color(0xffff3458),
+                                    color: MyColors.wrongColor,
                                   ),
                                 ),
                               ],
                             ),
                           )
                         : const SizedBox(),
-                    Container(
-                      // a96 (395:84)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 32 * fem),
-                      width: double.infinity,
-                      child: GestureDetector(
-                        onTap: () => viewModel.autoLoginCheck(),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              // stradioW2k (395:85)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 8 * fem, 0 * fem),
-                              width: 27 * fem,
-                              height: 27 * fem,
-                              child: Image.asset(
-                                viewModel.autoLoginChecked
-                                    ? Assets.autoLoginChecked
-                                    : Assets.autoLoginUnChecked,
-                                width: 27 * fem,
-                                height: 27 * fem,
-                              ),
-                            ),
-                            Container(
-                              // Qdv (395:86)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 5 * fem, 0 * fem, 0 * fem),
-                              child: GestureDetector(
-                                child: Text(
-                                  '자동로그인',
-                                  style: SafeGoogleFont(
-                                    'Pretendard',
-                                    fontSize: 16 * ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1 * ffem / fem,
-                                    color: const Color(0xff222222),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    AgreeCheck(
+                      fem: fem,
+                      execFunc: viewModel.autoLoginCheck,
+                      ffem: ffem,
+                      text: '자동로그인',
+                      checked: viewModel.autoLoginChecked,
                     ),
                     Container(
                       // btnprimaryXCk (396:248)
+
                       margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 9 * fem, 32 * fem),
+                          0 * fem, 32 * fem, 9 * fem, 32 * fem),
                       width: 320 * fem,
                       height: 59 * fem,
                       decoration: BoxDecoration(
-                        color: const Color(0xff7652dd),
+                        color: MyColors.ableColor,
                         borderRadius: BorderRadius.circular(8 * fem),
                       ),
                       child: TextButton(
@@ -337,17 +282,21 @@ class _LoginState extends State<Login> {
                           width: double.infinity,
                           height: 24 * fem,
                           child: Center(
-                            child: Text(
-                              '비밀번호재설정',
-                              textAlign: TextAlign.center,
-                              style: SafeGoogleFont(
-                                'Pretendard',
-                                fontSize: 16 * ffem,
-                                fontWeight: FontWeight.w500,
-                                height: 1.5 * ffem / fem,
-                                decoration: TextDecoration.underline,
-                                color: const Color(0xff999999),
-                                decorationColor: const Color(0xff999999),
+                            child: GestureDetector(
+                              onTap: () =>
+                                  Navigator.pushNamed(context, Routes.password),
+                              child: Text(
+                                '비밀번호재설정',
+                                textAlign: TextAlign.center,
+                                style: SafeGoogleFont(
+                                  'Pretendard',
+                                  fontSize: 16 * ffem,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.5 * ffem / fem,
+                                  decoration: TextDecoration.underline,
+                                  color: const Color(0xff999999),
+                                  decorationColor: const Color(0xff999999),
+                                ),
                               ),
                             ),
                           ),
