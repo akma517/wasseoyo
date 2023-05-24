@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:wasseoyo/utils/constants/assets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wasseoyo/utils/constants/fonts.dart';
 
 class AgreeCheck extends StatefulWidget {
   const AgreeCheck({
     super.key,
-    required this.fem,
     this.execFunc,
-    required this.ffem,
     required this.text,
     this.checked,
   });
 
-  final double fem;
   final Function? execFunc;
-  final double ffem;
   final String text;
   final bool? checked;
 
@@ -33,49 +30,29 @@ class _AgreeCheckState extends State<AgreeCheck> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // a96 (395:84)
-      margin: EdgeInsets.fromLTRB(
-          0 * widget.fem, 0 * widget.fem, 0 * widget.fem, 0 * widget.fem),
-      width: double.infinity,
-      child: GestureDetector(
-        onTap: () {
-          widget.execFunc?.call() ??
-              setState(
-                () => checked = !checked,
-              );
-        },
+    return GestureDetector(
+      onTap: () {
+        widget.execFunc?.call() ??
+            setState(
+              () => checked = !checked,
+            );
+      },
+      child: Container(
         child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              // stradioW2k (395:85)
-              margin: EdgeInsets.fromLTRB(0 * widget.fem, 0 * widget.fem,
-                  8 * widget.fem, 0 * widget.fem),
-              width: 27 * widget.fem,
-              height: 27 * widget.fem,
               child: Image.asset(
                 checked ? MyAssets.checked : MyAssets.unChecked,
-                width: 27 * widget.fem,
-                height: 27 * widget.fem,
+                fit: BoxFit.fill,
               ),
             ),
-            Container(
-              // Qdv (395:86)
-              margin: EdgeInsets.fromLTRB(0 * widget.fem, 5 * widget.fem,
-                  0 * widget.fem, 0 * widget.fem),
-              child: GestureDetector(
-                child: Text(
-                  widget.text,
-                  style: SafeGoogleFont(
-                    'Pretendard',
-                    fontSize: 16 * widget.ffem,
-                    fontWeight: FontWeight.w500,
-                    height: 1 * widget.ffem / widget.fem,
-                    color: const Color(0xff222222),
-                  ),
-                ),
-              ),
+            SizedBox(width: 8.w),
+            Text(
+              widget.text,
+              style: MyFonts.m16,
             ),
           ],
         ),

@@ -7,6 +7,7 @@ import 'package:wasseoyo/utils/helpers/route_mapper.dart';
 import 'package:wasseoyo/utils/helpers/scroll.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding
@@ -38,22 +39,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var initRoute = autoLogined == true ? Routes.index : Routes.login;
     FlutterNativeSplash.remove();
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => UserViewModel(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Wasseoyo Demo',
-        debugShowCheckedModeBanner: false,
-        scrollBehavior: MyCustomScrollBehavior(),
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        initialRoute: initRoute,
-        routes: routeManager,
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(360, 780),
+      builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (context) => UserViewModel(),
+            ),
+          ],
+          child: MaterialApp(
+            title: 'Wasseoyo Demo',
+            debugShowCheckedModeBanner: false,
+            scrollBehavior: MyCustomScrollBehavior(),
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            initialRoute: initRoute,
+            routes: routeManager,
+          ),
+        );
+      },
     );
   }
 }

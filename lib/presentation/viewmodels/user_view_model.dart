@@ -87,4 +87,14 @@ class UserViewModel with ChangeNotifier {
     changeFailed = !changeFailed;
     notifyListeners();
   }
+
+  void loginFail() {
+    loginFailed = true;
+    notifyListeners();
+  }
+
+  void loginInit() {
+    loginFailed = false;
+    notifyListeners();
+  }
 }

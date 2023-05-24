@@ -1,7 +1,29 @@
 class MyAssets {
-  static const String imagePath = "assets/uiux/images";
-  static const String logo = "$imagePath/kwsy-logo-wUk.png";
-  static const String checked = "$imagePath/st-radio.png";
-  static const String unChecked = "$imagePath/st-radio-rD6.png";
-  static const String leftArrow = "$imagePath/arrow-left.png";
+  static const String imagePath = "assets/images";
+  static const String alarm = "$imagePath/alarm.png";
+  static const String appIcon = "$imagePath/app-icon.png";
+  static const String arrowBottom = "$imagePath/arrow-bottom.png";
+  static const String arrowLeft = "$imagePath/arrow-left.png";
+  static const String arrowRight = "$imagePath/arrow-right.png";
+  static const String authority = "$imagePath/authority.png";
+  static const String beacon = "$imagePath/beacon.png";
+  static const String chart = "$imagePath/chart.png";
+  static const String check = "$imagePath/check.png";
+  static const String clear = "$imagePath/clear.png";
+  static const String close = "$imagePath/sclose.png";
+  static const String code = "$imagePath/code.png";
+  static const String attendance = "$imagePath/con-box-attendance.png";
+  static const String security = "$imagePath/con-box-security.png";
+  static const String goLg = "$imagePath/go-lg.png";
+  static const String history = "$imagePath/history.png";
+  static const String lateLg = "$imagePath/late-lg.png";
+  static const String logo = "$imagePath/logo.png";
+  static const String menu = "$imagePath/menu.png";
+  static const String notice = "$imagePath/notice.png";
+  static const String profile = "$imagePath/profile.png";
+  static const String search = "$imagePath/search.png";
+  static const String upload = "$imagePath/upload.png";
+  static const String user = "$imagePath/user.png";
+  static const String checked = "$imagePath/checked.png";
+  static const String unChecked = "$imagePath/unchecked.png";
 }
